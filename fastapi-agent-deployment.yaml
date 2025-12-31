@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastapi-agent
+  template:
+    metadata:
+      labels:
+        app: fastapi-agent
+    spec:
+      containers:
+      - name: fastapi-agent
+        image: your-docker-image:latest   # Replace with your image containing FastAPI + Ollama
+        ports:
+        - containerPort: 8000
+        env:
+        - name: OLLAMA_HOST
+          value: "http://127.0.0.1:11434"
+        - name: OLLAMA_DEBUG
+          value: "INFO"
+        command: ["uvicorn"]
+        args: ["main:app", "--host", "0.0.0.0", "--port", "8000"]

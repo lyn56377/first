@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Multi-Agent Canvas</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #111;
+      color: #eee;
+      padding: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 120px;
+      background: #222;
+      color: #0f0;
+      border: 1px solid #444;
+      padding: 10px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: #0a84ff;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    pre {
+      background: #000;
+      padding: 15px;
+      margin-top: 20px;
+      white-space: pre-wrap;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Multi-Agent Reasoning Canvas</h2>
+
+<textarea id="input" placeholder="Describe the problem..."></textarea>
+<br>
+<button onclick="runAgents()">Run Agents</button>
+
+<pre id="output"></pre>
+
+<script>
+async function runAgents() {
+  const problem = document.getElementById("input").value;
+  document.getElementById("output").textContent = "Running agents...";
+
+  const res = await fetch("/run", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ problem })
+  });
+
+  const data = await res.json();
+  document.getElementById("output").textContent = data.result;
+}
+</script>
+
+</body>
+</html>
