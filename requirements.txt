@@ -2,3 +2,5 @@ fastapi
 uvicorn
 pydantic
 ollama
+jinja2        # if you render HTML templates
+aiofiles      # for serving static files
